@@ -9,13 +9,15 @@ const ProductTable = (props) => {
 
     // Logic for filtering products based on matched text startsWith()
     let filteredProducts = products;
+    // Filter products by name based on text in search box
     if (filterText !== "") {
-        filteredProducts = products.filter(product => {
-            return product.name.startsWith(filterText)
+        filteredProducts = filteredProducts.filter(product => {
+            return product.name.toLowerCase().startsWith(filterText.toLowerCase());
         })
     }
-    else if (inStockOnly) {
-        filteredProducts = products.filter(product => {
+    // If in stock only checked then filter products with that attribute
+    if (inStockOnly) {
+        filteredProducts = filteredProducts.filter(product => {
             return product.stocked
         })
     }
@@ -49,4 +51,4 @@ const ProductTable = (props) => {
     )
 }
 
-export default ProductTable
+export default ProductTable;
