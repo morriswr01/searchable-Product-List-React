@@ -1,0 +1,2 @@
+export const SET_IN_STOCK_ONLY = 'SET_IN_STOCK_ONLY';
+export const SET_FILTERED_TEXT = 'SET_FILTERED_TEXT';

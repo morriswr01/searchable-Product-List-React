@@ -6,42 +6,39 @@ import PropTypes from 'prop-types';
 import SearchBox from './SearchBox'
 import ProductTable from './ProductTable'
 
+// Actions
+import { setFilteredText, setInStockOnly } from './actions/productActions';
+
 // CSS
 import './css/SearchableProductTable.css';
 
-class SearchableProductTable extends Component {
+const SearchableProductTable = (props) => {
 
-    handleFilterTextChange(filterText) {
-        // this.setState({
-        //     filterText: filterText
-        // })
+    const handleFilterTextChange = (filterText) => {
+        props.setFilteredText(filterText);
     }
 
-    handleInStockChange(inStockOnly) {
-        // this.setState({
-        //     inStockOnly: inStockOnly
-        // })
+    const handleInStockChange = (inStockOnly) => {
+        props.setInStockOnly(inStockOnly);
     }
 
-    render() {
-        const { filteredProducts, filterText, inStockOnly } = this.props;
-        return (
-            <div className="SearchableProductTable">
-                <h1 className="title">Searchable Product Table</h1>
-                <SearchBox
-                    filterText={filterText}
-                    inStockOnly={inStockOnly}
-                    onFilterTextChange={this.handleFilterTextChange}
-                    onInStockChange={this.handleInStockChange}
-                />
-                <ProductTable
-                    products={filteredProducts}
-                    filterText={filterText}
-                    inStockOnly={inStockOnly}
-                />
-            </div>
-        )
-    }
+    const { filteredProducts, filterText, inStockOnly } = props;
+    return (
+        <div className="SearchableProductTable">
+            <h1 className="title">Searchable Product Table</h1>
+            <SearchBox
+                filterText={filterText}
+                inStockOnly={inStockOnly}
+                onFilterTextChange={handleFilterTextChange}
+                onInStockChange={handleInStockChange}
+            />
+            <ProductTable
+                products={filteredProducts}
+                filterText={filterText}
+                inStockOnly={inStockOnly}
+            />
+        </div>
+    )
 
 }
 
@@ -55,4 +52,38 @@ const mapStateToProps = (state) => ({
     inStockOnly: state.products.inStockOnly
 });
 
-export default connect(mapStateToProps)(SearchableProductTable);
+export default connect(mapStateToProps, { setFilteredText, setInStockOnly })(SearchableProductTable);
+
+
+// THIS IS THE CLASS EQUIVALENT OF THE ABOVE
+// class SearchableProductTable extends Component {
+
+//     handleFilterTextChange = (filterText) => {
+//         this.props.setFilteredText(filterText);
+//     }
+
+//     handleInStockChange = (inStockOnly) => {
+//         this.props.setInStockOnly(inStockOnly);
+//     }
+
+//     render() {
+//         const { filteredProducts, filterText, inStockOnly } = this.props;
+//         return (
+//             <div className="SearchableProductTable">
+//                 <h1 className="title">Searchable Product Table</h1>
+//                 <SearchBox
+//                     filterText={filterText}
+//                     inStockOnly={inStockOnly}
+//                     onFilterTextChange={this.handleFilterTextChange}
+//                     onInStockChange={this.handleInStockChange}
+//                 />
+//                 <ProductTable
+//                     products={filteredProducts}
+//                     filterText={filterText}
+//                     inStockOnly={inStockOnly}
+//                 />
+//             </div>
+//         )
+//     }
+
+// }

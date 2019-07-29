@@ -1,4 +1,4 @@
-// import { TEXT_FILTER_PRODUCTS } from '../actions/types';
+import { SET_FILTERED_TEXT, SET_IN_STOCK_ONLY } from '../actions/types';
 
 const initialState = {
     allProducts: [
@@ -22,5 +22,18 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-    return state;
+    switch (action.type) {
+        case SET_FILTERED_TEXT:
+            return {
+                ...state,
+                filterText: action.payload
+            }
+        case SET_IN_STOCK_ONLY:
+            return {
+                ...state,
+                inStockOnly: action.payload
+            }
+        default:
+            return state;
+    }
 }
