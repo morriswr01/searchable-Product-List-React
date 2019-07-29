@@ -21,16 +21,34 @@ const initialState = {
     inStockOnly: false
 }
 
+// Get the new list of filteredProducts based on updated filterText and inStock only values(REFACTORED FROM SEARCHABLEPRODUCTTABLE.JS)
+const updateFilteredProducts = (allProducts, filterText, inStockOnly) => {
+    let filteredProducts = allProducts;
+    if (filterText !== "") {
+        filteredProducts = filteredProducts.filter(product => {
+            return product.name.toLowerCase().startsWith(filterText.toLowerCase());
+        })
+    }
+    if (inStockOnly) {
+        filteredProducts = filteredProducts.filter(product => {
+            return product.stocked
+        })
+    }
+    return filteredProducts;
+}
+
 export default (state = initialState, action) => {
     switch (action.type) {
         case SET_FILTERED_TEXT:
             return {
                 ...state,
+                filteredProducts: updateFilteredProducts(state.allProducts, action.payload, state.inStockOnly),
                 filterText: action.payload
             }
         case SET_IN_STOCK_ONLY:
             return {
                 ...state,
+                filteredProducts: updateFilteredProducts(state.allProducts, state.filterText, action.payload),
                 inStockOnly: action.payload
             }
         default:

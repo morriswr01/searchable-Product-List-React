@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -34,12 +34,9 @@ const SearchableProductTable = (props) => {
             />
             <ProductTable
                 products={filteredProducts}
-                filterText={filterText}
-                inStockOnly={inStockOnly}
             />
         </div>
     )
-
 }
 
 SearchableProductTable.propTypes = {
