@@ -6,7 +6,6 @@ import "./css/ProductTable.css";
 
 const ProductTable = (props) => {
     const { products, filterText, inStockOnly } = props;
-
     // Logic for filtering products based on matched text startsWith()
     let filteredProducts = products;
     // Filter products by name based on text in search box
@@ -21,13 +20,13 @@ const ProductTable = (props) => {
             return product.stocked
         })
     }
-    
+
     let rows = []
     let lastCategory = null;
     filteredProducts.forEach(product => {
         if (product.category !== lastCategory) {
             lastCategory = product.category;
-            rows.push(<ProductCategory category={product.category} key={product.category}/>);
+            rows.push(<ProductCategory category={product.category} key={product.category} />);
         }
 
         rows.push(<ProductRow product={product} key={product.name} />)
@@ -52,3 +51,5 @@ const ProductTable = (props) => {
 }
 
 export default ProductTable;
+
+
