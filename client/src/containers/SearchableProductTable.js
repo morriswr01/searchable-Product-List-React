@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // Components
-import SearchBox from './SearchBox'
-import ProductTable from './ProductTable'
+import SearchBox from '../components/SearchBox'
+import ProductTable from '../components/ProductTable'
 
 // Actions
-import { setFilteredText, setInStockOnly } from './actions/productActions';
+import { setFilteredText, setInStockOnly } from '../actions/productActions';
 
 // CSS
-import './css/SearchableProductTable.css';
+import '../css/SearchableProductTable.css';
 
 const SearchableProductTable = (props) => {
 
@@ -50,6 +50,10 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { setFilteredText, setInStockOnly })(SearchableProductTable);
+
+
+
+
 
 
 // THIS IS THE CLASS EQUIVALENT OF THE ABOVE

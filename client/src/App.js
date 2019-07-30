@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 // Component Imports
-import SearchableProductTable from './SearchableProductTable';
+import SearchableProductTable from './containers/SearchableProductTable';
 
 // CSS
 import './css/App.css';

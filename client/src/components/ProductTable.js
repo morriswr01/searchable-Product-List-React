@@ -2,7 +2,7 @@ import React from 'react';
 
 import ProductCategory from "./ProductCategory";
 import ProductRow from "./ProductRow";
-import "./css/ProductTable.css";
+import "../css/ProductTable.css";
 
 const ProductTable = (props) => {
     const { products } = props;

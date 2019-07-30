@@ -1,5 +1,5 @@
 import React from 'react';
-import "./css/ProductRow.css";
+import "../css/ProductRow.css";
 
 const ProductRow = (props) => {
     const {name, price, stocked} = props.product;
