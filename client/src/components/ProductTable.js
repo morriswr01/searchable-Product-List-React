@@ -9,17 +9,21 @@ const ProductTable = (props) => {
 
     const rows = (products) => {
         let rows = []
-        let lastCategory = null;
-        products.forEach(product => {
-            if (product.category !== lastCategory) {
-                lastCategory = product.category;
-                rows.push(<ProductCategory category={product.category} key={product.category} />);
-            }
-
-            rows.push(<ProductRow product={product} key={product.name} />)
-        });
-
-        return rows;
+        if (products === []) {
+            return rows;
+        }
+        else {
+            let lastCategory = null;
+            products.forEach(product => {
+                if (product.category !== lastCategory) {
+                    lastCategory = product.category;
+                    rows.push(<ProductCategory category={product.category} key={product.category} />);
+                }
+    
+                rows.push(<ProductRow product={product} key={product.name} />)
+            });
+            return rows;
+        }
     }
 
     return (
