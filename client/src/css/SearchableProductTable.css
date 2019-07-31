@@ -1,7 +1,11 @@
-/* .SearchableProductTable {
-    
-} */
-
 .title {
-    text-decoration: underline;
+    text-align: center;
+    font-size: 3.5rem;
+    font-weight: 300;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.SearchableProductTable {
+    padding: 0 20%;
 }

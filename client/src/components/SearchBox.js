@@ -1,5 +1,8 @@
 import React from 'react';
 
+// CSS
+import '../css/SearchBox.css';
+
 const SearchBox = (props) => {
     const { filterText, onFilterTextChange, onInStockChange } = props;
 
@@ -12,12 +15,15 @@ const SearchBox = (props) => {
     }
 
     return (
-        <div>
-            <input type="text" 
+        <div className="SearchBox">
+            <input 
+                className="inputBox"
+                type="text"
                 placeholder={filterText !== '' ? filterText : "Search..."}
                 onChange={handleFilterTextChange}
             /><br />
-            <input 
+            <input
+                className="stockOnlyCheckbox"
                 type="checkbox" 
                 name="filterProductsInStock" 
                 onChange={handleInStockChange}
