@@ -1,12 +1,20 @@
 .inputBox {
     width: 100%;
-    height: 30px;
-    border: 3px solid #61dafb;
+    height: 40px;
+    border: 3px solid white;
     border-radius: 15px;
     font-size: 1.5rem;
-    padding: 10px
+    padding: 10px;
+    margin-bottom: 5px
+}
+
+.buttons {
+    margin: 10px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5px;
 }
 
 .stockOnlyCheckbox {
-    margin-top: 15px
+    /* margin-left: 10px */
 }

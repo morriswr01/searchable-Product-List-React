@@ -28,7 +28,7 @@ const ProductTable = (props) => {
 
     return (
         <div>
-            <h2>Product Table</h2>
+            <h2 className="tableTitle" >Product Table</h2>
             <table>
                 <thead>
                     <tr>
