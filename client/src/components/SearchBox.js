@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+
 import {
     Button,
     ButtonDropdown,
@@ -10,7 +11,7 @@ import {
 // CSS
 import '../css/SearchBox.css';
 
-class SearchBox extends React.Component {
+class SearchBox extends Component {
     constructor(props) {
         super(props);
 
@@ -27,6 +28,10 @@ class SearchBox extends React.Component {
 
     handleInStockChange = (e) => {
         this.props.onInStockChange(e.target.checked);
+    }
+
+    handleSortByChange = (sortByCode) => {
+        this.props.onSortByChange(sortByCode);
     }
 
     toggle() {
@@ -56,10 +61,10 @@ class SearchBox extends React.Component {
                             Sort By
                         </DropdownToggle>
                         <DropdownMenu>
-                            <DropdownItem>A-Z</DropdownItem>
-                            <DropdownItem>Z-A</DropdownItem>
-                            <DropdownItem>Name Length</DropdownItem>
-                            <DropdownItem>Price</DropdownItem>
+                            <DropdownItem onClick={this.handleSortByChange.bind(this, 1)}>A-Z</DropdownItem>
+                            <DropdownItem onClick={this.handleSortByChange.bind(this, 2)}>Z-A</DropdownItem>
+                            <DropdownItem onClick={this.handleSortByChange.bind(this, 3)}>Name Length</DropdownItem>
+                            <DropdownItem onClick={this.handleSortByChange.bind(this, 4)}>Price</DropdownItem>
                             <DropdownItem disabled>Stock Sold</DropdownItem>
                         </DropdownMenu>
                     </ButtonDropdown>

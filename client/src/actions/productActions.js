@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SET_FILTERED_TEXT, SET_IN_STOCK_ONLY, GET_ALL_PRODUCTS } from './types';
+import { SET_FILTERED_TEXT, SET_IN_STOCK_ONLY, GET_ALL_PRODUCTS, SET_SORTBY_CODE } from './types';
 
 export const setFilteredText = filteredText => ({
     type: SET_FILTERED_TEXT,
@@ -9,6 +9,11 @@ export const setFilteredText = filteredText => ({
 export const setInStockOnly = inStockOnly => ({
     type: SET_IN_STOCK_ONLY,
     payload: inStockOnly
+});
+
+export const setSortByCode = sortByCode => ({
+    type: SET_SORTBY_CODE,
+    payload: sortByCode
 });
 
 export const getAllProducts = () => dispatch => {
@@ -22,3 +27,4 @@ export const getAllProducts = () => dispatch => {
         })
         .catch(err => console.log(err.response.data));
 };
+

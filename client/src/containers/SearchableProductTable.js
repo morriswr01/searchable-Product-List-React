@@ -8,7 +8,7 @@ import SearchBox from '../components/SearchBox'
 import ProductTable from '../components/ProductTable'
 
 // Actions
-import { setFilteredText, setInStockOnly, getAllProducts } from '../actions/productActions';
+import { setFilteredText, setInStockOnly, getAllProducts, setSortByCode } from '../actions/productActions';
 
 // CSS
 import '../css/SearchableProductTable.css';
@@ -25,6 +25,10 @@ class SearchableProductTable extends Component {
 
     handleInStockChange = (inStockOnly) => {
         this.props.setInStockOnly(inStockOnly);
+    }
+
+    handleSortByChange = (sortByCode) => {
+        this.props.setSortByCode(sortByCode);
     }
 
     sortFilteredProducts = (filteredProducts, sortByCode) => {
@@ -58,6 +62,7 @@ class SearchableProductTable extends Component {
                     inStockOnly={inStockOnly}
                     onFilterTextChange={this.handleFilterTextChange}
                     onInStockChange={this.handleInStockChange}
+                    onSortByChange={this.handleSortByChange}
                 />
                 <ProductTable
                     products={sortedFilteredProducts}
@@ -80,7 +85,7 @@ const mapStateToProps = (state) => ({
     sortByCode: state.products.sortByCode
 });
 
-export default connect(mapStateToProps, { setFilteredText, setInStockOnly, getAllProducts })(SearchableProductTable);
+export default connect(mapStateToProps, { setFilteredText, setInStockOnly, getAllProducts, setSortByCode })(SearchableProductTable);
 
 
 
