@@ -19,6 +19,7 @@ const initialState = {
     // ],
     allProducts: [],
     filteredProducts: [],
+    sortByCode: 4,
     filterText: '',
     inStockOnly: false
 }
@@ -43,7 +44,6 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_PRODUCTS:
             const allProducts = action.payload;
-            console.log(allProducts);
             return {
                 ...state,
                 allProducts: allProducts,

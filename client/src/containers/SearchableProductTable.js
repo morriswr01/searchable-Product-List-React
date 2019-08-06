@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { sortBy } from 'lodash';
 
 // Components
 import SearchBox from '../components/SearchBox'
@@ -14,7 +15,6 @@ import '../css/SearchableProductTable.css';
 
 class SearchableProductTable extends Component {
 
-    // eslint-disable-next-line no-unused-vars
     componentDidMount() {
         this.props.getAllProducts();
     }
@@ -27,8 +27,29 @@ class SearchableProductTable extends Component {
         this.props.setInStockOnly(inStockOnly);
     }
 
+    sortFilteredProducts = (filteredProducts, sortByCode) => {
+        switch (sortByCode) {
+            case 1:
+                // A-Z
+                return sortBy(filteredProducts, [(product) => { return product.name.toLowerCase(); }]);
+            case 2:
+                // Z-A
+                return sortBy(filteredProducts, [(product) => { return product.name.toLowerCase(); }]).reverse();
+            case 3:
+                // Name Length
+                return sortBy(filteredProducts, [(product) => { return product.name.length; }]);
+            case 4:
+                // Price
+                return sortBy(filteredProducts, ['price']);
+            default:
+                return filteredProducts;
+        }
+    }
+
     render() {
-        const { filteredProducts, filterText, inStockOnly } = this.props;
+        const { filteredProducts, filterText, inStockOnly, sortByCode } = this.props;
+        const sortedFilteredProducts = this.sortFilteredProducts(filteredProducts, sortByCode);
+        // console.log(sortedFilteredProducts);
         return (
             <div className="SearchableProductTable">
                 <h1 className="title">Searchable Product Table</h1>
@@ -39,7 +60,7 @@ class SearchableProductTable extends Component {
                     onInStockChange={this.handleInStockChange}
                 />
                 <ProductTable
-                    products={filteredProducts}
+                    products={sortedFilteredProducts}
                 />
             </div>
         )
@@ -55,7 +76,8 @@ SearchableProductTable.propTypes = {
 const mapStateToProps = (state) => ({
     filteredProducts: state.products.filteredProducts,
     filterText: state.products.filterText,
-    inStockOnly: state.products.inStockOnly
+    inStockOnly: state.products.inStockOnly,
+    sortByCode: state.products.sortByCode
 });
 
 export default connect(mapStateToProps, { setFilteredText, setInStockOnly, getAllProducts })(SearchableProductTable);
