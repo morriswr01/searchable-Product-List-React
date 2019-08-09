@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import InputGroup from './InputGroup';
 import {
     Button,
     ButtonDropdown,
@@ -10,10 +11,7 @@ import {
     ModalHeader,
     ModalBody,
     ModalFooter,
-    Form,
-    FormGroup,
-    Label,
-    Input
+    Form
 } from 'reactstrap';
 
 // CSS
@@ -129,22 +127,31 @@ class SearchBox extends Component {
                         <ModalHeader toggle={this.showModal} className="modalHeader">New Product</ModalHeader>
                         <Form>
                             <ModalBody>
-                                <FormGroup>
-                                    <Label for="productName">Name</Label>
-                                    <Input onChange={this.handleNewProductFormChange} type="text" name="name" id="productName" placeholder="Name" />
-                                </FormGroup>
-                                <FormGroup>
-                                    <Label for="productPrice">Price</Label>
-                                    <Input onChange={this.handleNewProductFormChange} type="text" name="price" id="productPrice" placeholder="Price" />
-                                </FormGroup>
-                                <FormGroup>
-                                    <Label for="category">Select</Label>
-                                    <Input onChange={this.handleNewProductFormChange} type="select" name="category" id="category">
-                                        <option default value="">Select Category</option>
-                                        <option value="Electronics">Electronics</option>
-                                        <option value="Sporting Goods">Sporting Goods</option>
-                                    </Input>
-                                </FormGroup>
+                                <InputGroup
+                                    type="text"
+                                    labeltext="Name"
+                                    name="name"
+                                    id="productName"
+                                    onChange={this.handleNewProductFormChange}
+                                />
+                                <InputGroup
+                                    type="text"
+                                    labeltext="Price"
+                                    name="price"
+                                    id="productPrice"
+                                    onChange={this.handleNewProductFormChange}
+                                />
+                                <InputGroup
+                                    type="select"
+                                    labeltext="Select Category"
+                                    name="category"
+                                    id="category"
+                                    onChange={this.handleNewProductFormChange}>
+                                    {/* Options of the select dropdown */}
+                                    <option default value="">Select Category</option>
+                                    <option value="Electronics">Electronics</option>
+                                    <option value="Sporting Goods">Sporting Goods</option>
+                                </InputGroup>
                             </ModalBody>
                             <ModalFooter>
                                 <Button onClick={this.submitNewProduct} color="primary">Add Product</Button>{' '}
