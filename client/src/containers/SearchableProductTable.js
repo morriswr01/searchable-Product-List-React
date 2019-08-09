@@ -8,7 +8,7 @@ import SearchBox from '../components/SearchBox'
 import ProductTable from '../components/ProductTable'
 
 // Actions
-import { setFilteredText, setInStockOnly, getAllProducts, setSortByCode } from '../actions/productActions';
+import { setFilteredText, setInStockOnly, getAllProducts, setSortByCode, addNewProduct} from '../actions/productActions';
 
 // CSS
 import '../css/SearchableProductTable.css';
@@ -29,6 +29,10 @@ class SearchableProductTable extends Component {
 
     handleSortByChange = (sortByCode) => {
         this.props.setSortByCode(sortByCode);
+    }
+
+    handleNewProduct = (newProduct) => {
+        this.props.addNewProduct(newProduct);
     }
 
     sortFilteredProducts = (filteredProducts, sortByCode) => {
@@ -63,6 +67,7 @@ class SearchableProductTable extends Component {
                     onFilterTextChange={this.handleFilterTextChange}
                     onInStockChange={this.handleInStockChange}
                     onSortByChange={this.handleSortByChange}
+                    addNewProduct={this.handleNewProduct}
                 />
                 <ProductTable
                     products={sortedFilteredProducts}
@@ -70,9 +75,7 @@ class SearchableProductTable extends Component {
             </div>
         )
     }
-
 }
-
 
 SearchableProductTable.propTypes = {
     filteredProducts: PropTypes.array.isRequired
@@ -85,38 +88,4 @@ const mapStateToProps = (state) => ({
     sortByCode: state.products.sortByCode
 });
 
-export default connect(mapStateToProps, { setFilteredText, setInStockOnly, getAllProducts, setSortByCode })(SearchableProductTable);
-
-
-
-// const SearchableProductTable = (props) => {
-
-//     // eslint-disable-next-line no-unused-vars
-//     const componentDidMount = () => {
-//         props.getAllProducts();
-//     }
-
-//     const handleFilterTextChange = (filterText) => {
-//         props.setFilteredText(filterText);
-//     }
-
-//     const handleInStockChange = (inStockOnly) => {
-//         props.setInStockOnly(inStockOnly);
-//     }
-
-//     const { filteredProducts, filterText, inStockOnly } = props;
-//     return (
-//         <div className="SearchableProductTable">
-//             <h1 className="title">Searchable Product Table</h1>
-//             <SearchBox
-//                 filterText={filterText}
-//                 inStockOnly={inStockOnly}
-//                 onFilterTextChange={handleFilterTextChange}
-//                 onInStockChange={handleInStockChange}
-//             />
-//             <ProductTable
-//                 products={filteredProducts}
-//             />
-//         </div>
-//     )
-// }
+export default connect(mapStateToProps, { setFilteredText, setInStockOnly, getAllProducts, setSortByCode, addNewProduct })(SearchableProductTable);

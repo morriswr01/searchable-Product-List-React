@@ -15,6 +15,6 @@
     grid-gap: 5px;
 }
 
-.stockOnlyCheckbox {
-    /* margin-left: 10px */
+.modalHeader, Form {
+    color:black;
 }

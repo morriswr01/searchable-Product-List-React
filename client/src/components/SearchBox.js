@@ -5,7 +5,15 @@ import {
     ButtonDropdown,
     DropdownMenu,
     DropdownItem,
-    DropdownToggle
+    DropdownToggle,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
+    Form,
+    FormGroup,
+    Label,
+    Input
 } from 'reactstrap';
 
 // CSS
@@ -18,7 +26,14 @@ class SearchBox extends Component {
         // State for the dropdown button
         this.toggle = this.toggle.bind(this);
         this.state = {
-            dropdownOpen: false
+            dropdownOpen: false,
+            showModal: false,
+            newProduct: {
+                name: "",
+                price: 0,
+                category: "",
+                stocked: true
+            }
         };
     }
 
@@ -34,7 +49,44 @@ class SearchBox extends Component {
         this.props.onSortByChange(sortByCode);
     }
 
-    toggle() {
+    handleNewProductFormChange = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+
+        this.setState({
+            newProduct: {
+                ...this.state.newProduct,
+                [name]: value
+            }
+        });
+
+
+    }
+
+    submitNewProduct = () => {
+        console.log(this.state.newProduct);
+
+        // Dispatch action to add new item
+        this.props.addNewProduct(this.state.newProduct)
+
+        this.setState({
+            showModal: false,
+            newProduct: {
+                name: "",
+                price: 0,
+                category: "",
+                stocked: true
+            }
+        })
+    }
+
+    showModal = () => {
+        this.setState({
+            showModal: !this.state.showModal
+        })
+    }
+
+    toggle = () => {
         this.setState({
             dropdownOpen: !this.state.dropdownOpen
         });
@@ -56,6 +108,8 @@ class SearchBox extends Component {
                     onChange={this.handleInStockChange}
                 />Only show products in stock
                 <div className="buttons">
+
+                    {/* Sort By */}
                     <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                         <DropdownToggle caret color="primary">
                             Sort By
@@ -68,7 +122,35 @@ class SearchBox extends Component {
                             <DropdownItem disabled>Stock Sold</DropdownItem>
                         </DropdownMenu>
                     </ButtonDropdown>
-                    <Button color="danger">Add New Product</Button>
+
+                    {/* Add New Product */}
+                    <Button color="danger" onClick={this.showModal}>Add New Product</Button>
+                    <Modal isOpen={this.state.showModal} toggle={this.showModal}>
+                        <ModalHeader toggle={this.showModal} className="modalHeader">New Product</ModalHeader>
+                        <Form>
+                            <ModalBody>
+                                <FormGroup>
+                                    <Label for="productName">Name</Label>
+                                    <Input onChange={this.handleNewProductFormChange} type="text" name="name" id="productName" placeholder="Name" />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label for="productPrice">Price</Label>
+                                    <Input onChange={this.handleNewProductFormChange} type="text" name="price" id="productPrice" placeholder="Price" />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label for="category">Select</Label>
+                                    <Input onChange={this.handleNewProductFormChange} type="select" name="category" id="category">
+                                        <option default value="">Select Category</option>
+                                        <option value="Electronics">Electronics</option>
+                                        <option value="Sporting Goods">Sporting Goods</option>
+                                    </Input>
+                                </FormGroup>
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button onClick={this.submitNewProduct} color="primary">Add Product</Button>{' '}
+                            </ModalFooter>
+                        </Form>
+                    </Modal>
                 </div>
             </div>
         )

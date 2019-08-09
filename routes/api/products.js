@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 // @desc Create a product
 // @access Public
 router.post('/', (req, res) => {
-    const { name, category, price } = req.body;
+    const { name, category, price, stocked } = req.body;
     const newProduct = new Product({ name, category, price });
 
     newProduct
