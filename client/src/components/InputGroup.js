@@ -13,7 +13,7 @@ const InputGroup = (props) => {
                 <Input {...props} placeholder={props.labeltext} className={(errorMessage) ? "text-danger form-control is-invalid" : ""}>
                     {props.children}
                 </Input>
-                {(errorMessage) ? <small class="text-danger">{errorMessage}</small> : ""}
+                {(errorMessage) ? <small className="text-danger">{errorMessage}</small> : ""}
             </FormGroup>
         </div>
     )

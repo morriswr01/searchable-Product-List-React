@@ -32,6 +32,7 @@ class SearchBox extends Component {
                 category: "",
                 stocked: true,
                 errors: {
+                    generalError: "",
                     nameError: "",
                     priceError: "",
                     categoryError: ""
@@ -55,11 +56,30 @@ class SearchBox extends Component {
     handleNewProductFormChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
+        let errorMessage = "";
+
+        // Check for errors
+
+        switch (name) {
+            case "name":
+                break;
+            case "price":
+                break;
+            case "category":
+                break;
+            default:
+                break;
+        }
 
         this.setState({
+            ...this.state,
             newProduct: {
                 ...this.state.newProduct,
-                [name]: value
+                [name]: value,
+                errors: {
+                    ...this.state.newProduct.errors,
+                    [`${[name]}Error`]: errorMessage
+                }
             }
         });
 
@@ -67,16 +87,32 @@ class SearchBox extends Component {
     }
 
     submitNewProduct = () => {
-        console.log(this.state.newProduct);
 
         // Check for errors
+        const { name, category, price } = this.state.newProduct;
 
-        // Dispatch action to add new item
-        this.props.addNewProduct(this.state.newProduct)
+        if (!name || !category || !price) {
+            this.setState({
+                ...this.state,
+                newProduct: {
+                    ...this.state.newProduct,
+                    errors: {
+                        ...this.state.newProduct.errors,
+                        generalError: "All inputs must be filled to add a new product"
+                    }
+                }
+            });
+            return;
+        }
+
+
+        // this.props.addNewProduct(this.state.newProduct)
 
         this.setState({
+            ...this.state,
             showModal: false,
             newProduct: {
+                ...this.state.newProduct,
                 name: "",
                 price: 0,
                 category: "",
@@ -87,7 +123,19 @@ class SearchBox extends Component {
 
     showModal = () => {
         this.setState({
-            showModal: !this.state.showModal
+            showModal: !this.state.showModal,
+            newProduct: {
+                name: "",
+                price: 0,
+                category: "",
+                stocked: true,
+                errors: {
+                    generalError: "",
+                    nameError: "",
+                    priceError: "",
+                    categoryError: ""
+                }
+            }
         })
     }
 
@@ -134,6 +182,10 @@ class SearchBox extends Component {
                         <ModalHeader toggle={this.showModal} className="modalHeader">New Product</ModalHeader>
                         <Form>
                             <ModalBody>
+                                {(this.state.newProduct.errors.generalError) ?
+                                    <small className="text-danger">{this.state.newProduct.errors.generalError}</small>
+                                    : ""
+                                }
                                 <InputGroup
                                     type="text"
                                     labeltext="Name"
