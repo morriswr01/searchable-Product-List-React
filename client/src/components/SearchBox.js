@@ -30,7 +30,12 @@ class SearchBox extends Component {
                 name: "",
                 price: 0,
                 category: "",
-                stocked: true
+                stocked: true,
+                errors: {
+                    nameError: "",
+                    priceError: "",
+                    categoryError: ""
+                }
             }
         };
     }
@@ -63,6 +68,8 @@ class SearchBox extends Component {
 
     submitNewProduct = () => {
         console.log(this.state.newProduct);
+
+        // Check for errors
 
         // Dispatch action to add new item
         this.props.addNewProduct(this.state.newProduct)
@@ -133,6 +140,7 @@ class SearchBox extends Component {
                                     name="name"
                                     id="productName"
                                     onChange={this.handleNewProductFormChange}
+                                    error={this.state.newProduct.errors.nameError}
                                 />
                                 <InputGroup
                                     type="text"
@@ -140,13 +148,16 @@ class SearchBox extends Component {
                                     name="price"
                                     id="productPrice"
                                     onChange={this.handleNewProductFormChange}
+                                    error={this.state.newProduct.errors.priceError}
                                 />
                                 <InputGroup
                                     type="select"
                                     labeltext="Select Category"
                                     name="category"
                                     id="category"
-                                    onChange={this.handleNewProductFormChange}>
+                                    onChange={this.handleNewProductFormChange}
+                                    error={this.state.newProduct.errors.categoryError}
+                                >
                                     {/* Options of the select dropdown */}
                                     <option default value="">Select Category</option>
                                     <option value="Electronics">Electronics</option>
