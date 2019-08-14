@@ -38,8 +38,4 @@ export const addNewProduct = newProduct => dispatch => {
             });
         })
         .catch(err => console.log(err.response.data))
-    // dispatch({
-    //     type: ADD_NEW_PRODUCT,
-    //     payload: newProduct
-    // });
 }

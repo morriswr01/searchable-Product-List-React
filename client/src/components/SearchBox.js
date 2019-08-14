@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import InputGroup from './InputGroup';
 import {
     Button,
+    Input,
+    Label,
+    FormGroup,
     ButtonDropdown,
     DropdownMenu,
     DropdownItem,
@@ -16,6 +19,7 @@ import {
 
 // CSS
 import '../css/SearchBox.css';
+import '../css/InputGroup.css';
 
 class SearchBox extends Component {
     constructor(props) {
@@ -30,7 +34,7 @@ class SearchBox extends Component {
                 name: "",
                 price: 0,
                 category: "",
-                stocked: true,
+                stocked: false,
                 errors: {
                     generalError: "",
                     nameError: "",
@@ -55,20 +59,11 @@ class SearchBox extends Component {
 
     handleNewProductFormChange = (e) => {
         const name = e.target.name;
-        const value = e.target.value;
+        let value = e.target.value;
         let errorMessage = "";
 
-        // Check for errors
-
-        switch (name) {
-            case "name":
-                break;
-            case "price":
-                break;
-            case "category":
-                break;
-            default:
-                break;
+        if (name === "stocked") {
+            value = e.target.checked;
         }
 
         this.setState({
@@ -105,8 +100,7 @@ class SearchBox extends Component {
             return;
         }
 
-
-        // this.props.addNewProduct(this.state.newProduct)
+        this.props.addNewProduct(this.state.newProduct)
 
         this.setState({
             ...this.state,
@@ -116,7 +110,7 @@ class SearchBox extends Component {
                 name: "",
                 price: 0,
                 category: "",
-                stocked: true
+                stocked: false
             }
         })
     }
@@ -128,7 +122,7 @@ class SearchBox extends Component {
                 name: "",
                 price: 0,
                 category: "",
-                stocked: true,
+                stocked: false,
                 errors: {
                     generalError: "",
                     nameError: "",
@@ -192,15 +186,14 @@ class SearchBox extends Component {
                                     name="name"
                                     id="productName"
                                     onChange={this.handleNewProductFormChange}
-                                    error={this.state.newProduct.errors.nameError}
                                 />
                                 <InputGroup
-                                    type="text"
+                                    type="number"
+                                    min="0.01"
                                     labeltext="Price"
                                     name="price"
                                     id="productPrice"
                                     onChange={this.handleNewProductFormChange}
-                                    error={this.state.newProduct.errors.priceError}
                                 />
                                 <InputGroup
                                     type="select"
@@ -208,13 +201,24 @@ class SearchBox extends Component {
                                     name="category"
                                     id="category"
                                     onChange={this.handleNewProductFormChange}
-                                    error={this.state.newProduct.errors.categoryError}
                                 >
                                     {/* Options of the select dropdown */}
                                     <option default value="">Select Category</option>
                                     <option value="Electronics">Electronics</option>
                                     <option value="Sporting Goods">Sporting Goods</option>
                                 </InputGroup>
+                                <div className="formGroup" id="stockedFormGroup">
+                                    <FormGroup>
+                                        <Input
+                                            type="checkbox"
+                                            className="form-check-input"
+                                            id="stocked"
+                                            name="stocked"
+                                            onChange={this.handleNewProductFormChange}
+                                        />
+                                        <Label className="form-check-label" for="stocked">In Stock</Label>
+                                    </FormGroup>
+                                </div>
                             </ModalBody>
                             <ModalFooter>
                                 <Button onClick={this.submitNewProduct} color="primary">Add Product</Button>{' '}
