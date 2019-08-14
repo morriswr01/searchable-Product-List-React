@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SET_FILTERED_TEXT, SET_IN_STOCK_ONLY, GET_ALL_PRODUCTS, SET_SORTBY_CODE, ADD_NEW_PRODUCT } from './types';
+import { SET_FILTERED_TEXT, SET_IN_STOCK_ONLY, GET_ALL_PRODUCTS, SET_SORTBY_CODE, ADD_NEW_PRODUCT, DELETE_PRODUCT } from './types';
 
 export const setFilteredText = filteredText => ({
     type: SET_FILTERED_TEXT,
@@ -37,5 +37,17 @@ export const addNewProduct = newProduct => dispatch => {
                 payload: newProduct
             });
         })
-        .catch(err => console.log(err.response.data))
+        .catch(err => console.log(err.response.data));
+}
+
+export const deleteProduct = id => dispatch => {
+    axios
+        .delete('api/products', {data:{id: id}})
+        .then((res) => {
+            dispatch({
+                type: DELETE_PRODUCT,
+                payload: id
+            })
+        })
+        .catch(err => console.log(err.response.data));
 }

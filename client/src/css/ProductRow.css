@@ -1,4 +1,12 @@
 .red {
-    color: red;
-    
+    color: red;   
+}
+
+table {
+    width: 100%
+}
+
+.deleteProductButton {
+    color: white;
+    opacity: 1;
 }

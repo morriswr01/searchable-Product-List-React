@@ -8,7 +8,7 @@ import SearchBox from '../components/SearchBox'
 import ProductTable from '../components/ProductTable'
 
 // Actions
-import { setFilteredText, setInStockOnly, getAllProducts, setSortByCode, addNewProduct} from '../actions/productActions';
+import { setFilteredText, setInStockOnly, getAllProducts, setSortByCode, addNewProduct, deleteProduct } from '../actions/productActions';
 
 // CSS
 import '../css/SearchableProductTable.css';
@@ -32,7 +32,11 @@ class SearchableProductTable extends Component {
     }
 
     handleNewProduct = (newProduct) => {
-        this.props.addNewProduct(newProduct);
+       this.props.addNewProduct(newProduct);
+    }
+
+    handleDeletedProduct = (id) => {
+        this.props.deleteProduct(id);
     }
 
     sortFilteredProducts = (filteredProducts, sortByCode) => {
@@ -57,7 +61,6 @@ class SearchableProductTable extends Component {
     render() {
         const { filteredProducts, filterText, inStockOnly, sortByCode } = this.props;
         const sortedFilteredProducts = this.sortFilteredProducts(filteredProducts, sortByCode);
-        // console.log(sortedFilteredProducts);
         return (
             <div className="SearchableProductTable">
                 <h1 className="title">Searchable Product Table</h1>
@@ -71,6 +74,7 @@ class SearchableProductTable extends Component {
                 />
                 <ProductTable
                     products={sortedFilteredProducts}
+                    onDeletedProduct={this.handleDeletedProduct}
                 />
             </div>
         )
@@ -88,4 +92,4 @@ const mapStateToProps = (state) => ({
     sortByCode: state.products.sortByCode
 });
 
-export default connect(mapStateToProps, { setFilteredText, setInStockOnly, getAllProducts, setSortByCode, addNewProduct })(SearchableProductTable);
+export default connect(mapStateToProps, { setFilteredText, setInStockOnly, getAllProducts, setSortByCode, addNewProduct, deleteProduct })(SearchableProductTable);
