@@ -20,7 +20,7 @@ const ProductTable = (props) => {
                 //     rows.push(<ProductCategory category={product.category} key={product.category} />);
                 // }
     
-                rows.push(<ProductRow product={product} key={product.name} />)
+                rows.push(<ProductRow product={product} key={product._id} />)
             });
             return rows;
         }

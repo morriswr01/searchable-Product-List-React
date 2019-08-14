@@ -26,4 +26,16 @@ router.post('/', (req, res) => {
         .then(product => res.json(product));
 });
 
+// @router DELETE api/products
+// @desc Delete the product with the given id
+// @access Public
+router.delete('/', (req, res) => {
+    const { id } = req.body;
+    console.log(id);
+
+    Product
+        .findOneAndDelete({"_id": id})
+        .then(deletedProduct => res.json(deletedProduct));
+});
+
 module.exports = router;
