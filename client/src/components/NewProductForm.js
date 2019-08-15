@@ -1,7 +1,7 @@
 import React from 'react';
 
 import InputGroup from './InputGroup';
-import { 
+import {
     Form,
     FormGroup,
     Input,
@@ -9,6 +9,8 @@ import {
 } from 'reactstrap';
 
 export default function NewProductForm(props) {
+    const { categories } = props;
+    let categoryElements = categories.map(category => {return ( <option key={category} value={category}>{category}</option>)});
     return (
         <div>
             <Form>
@@ -36,8 +38,7 @@ export default function NewProductForm(props) {
                 >
                     {/* Options of the select dropdown */}
                     <option default value="">Select Category</option>
-                    <option value="Electronics">Electronics</option>
-                    <option value="Sporting Goods">Sporting Goods</option>
+                    {categoryElements}
                 </InputGroup>
                 <div className="formGroup" id="stockedFormGroup">
                     <FormGroup>

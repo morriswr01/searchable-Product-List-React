@@ -9,6 +9,8 @@ import ProductTable from '../components/ProductTable'
 
 // Actions
 import { setFilteredText, setInStockOnly, getAllProducts, setSortByCode, addNewProduct, deleteProduct } from '../actions/productActions';
+// eslint-disable-next-line no-unused-vars
+import { getAllCategories, addNewCategory } from "../actions/categoryActions";
 
 // CSS
 import '../css/SearchableProductTable.css';
@@ -17,6 +19,7 @@ class SearchableProductTable extends Component {
 
     componentDidMount() {
         this.props.getAllProducts();
+        this.props.getAllCategories();
     }
 
     handleFilterTextChange = (filterText) => {
@@ -32,7 +35,11 @@ class SearchableProductTable extends Component {
     }
 
     handleNewProduct = (newProduct) => {
-       this.props.addNewProduct(newProduct);
+        this.props.addNewProduct(newProduct);
+    }
+
+    handleNewCategory = (name) => {
+        this.props.addNewCategory(name);
     }
 
     handleDeletedProduct = (id) => {
@@ -59,7 +66,7 @@ class SearchableProductTable extends Component {
     }
 
     render() {
-        const { filteredProducts, filterText, inStockOnly, sortByCode } = this.props;
+        const { filteredProducts, filterText, inStockOnly, sortByCode, categories } = this.props;
         const sortedFilteredProducts = this.sortFilteredProducts(filteredProducts, sortByCode);
         return (
             <div className="SearchableProductTable">
@@ -67,11 +74,13 @@ class SearchableProductTable extends Component {
                 <SearchBox
                     filterText={filterText}
                     inStockOnly={inStockOnly}
+                    categories={categories.map(category => category.name)}
                     onFilterTextChange={this.handleFilterTextChange}
                     onInStockChange={this.handleInStockChange}
                     onSortByChange={this.handleSortByChange}
                     addNewProduct={this.handleNewProduct}
-                />
+                    addNewCategory={this.handleNewCategory}
+                    />
                 <ProductTable
                     products={sortedFilteredProducts}
                     onDeletedProduct={this.handleDeletedProduct}
@@ -82,14 +91,27 @@ class SearchableProductTable extends Component {
 }
 
 SearchableProductTable.propTypes = {
-    filteredProducts: PropTypes.array.isRequired
+    filteredProducts: PropTypes.array.isRequired,
+    categories: PropTypes.array.isRequired
 }
 
 const mapStateToProps = (state) => ({
     filteredProducts: state.products.filteredProducts,
     filterText: state.products.filterText,
     inStockOnly: state.products.inStockOnly,
-    sortByCode: state.products.sortByCode
+    sortByCode: state.products.sortByCode,
+    categories: state.categories.categories
 });
 
-export default connect(mapStateToProps, { setFilteredText, setInStockOnly, getAllProducts, setSortByCode, addNewProduct, deleteProduct })(SearchableProductTable);
+export default connect(
+    mapStateToProps,
+    {
+        setFilteredText,
+        setInStockOnly,
+        getAllProducts,
+        setSortByCode,
+        addNewProduct,
+        deleteProduct,
+        getAllCategories,
+        addNewCategory
+    })(SearchableProductTable);

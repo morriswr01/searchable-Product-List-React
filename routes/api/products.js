@@ -31,8 +31,6 @@ router.post('/', (req, res) => {
 // @access Public
 router.delete('/', (req, res) => {
     const { id } = req.body;
-    console.log(id);
-
     Product
         .findOneAndDelete({"_id": id})
         .then(deletedProduct => res.json(deletedProduct));

@@ -8,6 +8,7 @@ import {
     DropdownToggle,
     Modal,
     ModalHeader,
+    Form,
     ModalBody,
     ModalFooter,
 } from 'reactstrap';
@@ -15,6 +16,7 @@ import {
 // CSS
 import '../css/SearchBox.css';
 import '../css/InputGroup.css';
+import InputGroup from './InputGroup'
 import NewProductForm from './NewProductForm';
 
 class SearchBox extends Component {
@@ -25,18 +27,22 @@ class SearchBox extends Component {
         this.toggle = this.toggle.bind(this);
         this.state = {
             dropdownOpen: false,
-            showModal: false,
+            showProductModal: false,
+            // New product state
             newProduct: {
                 name: "",
                 price: 0,
                 category: "",
                 stocked: false,
                 errors: {
-                    generalError: "",
-                    nameError: "",
-                    priceError: "",
-                    categoryError: ""
+                    generalError: ""
                 }
+            },
+            // New category state
+            showCategoryModal: false,
+            newCategory: {
+                name: "",
+                generalError: ""
             }
         };
     }
@@ -77,6 +83,19 @@ class SearchBox extends Component {
 
     }
 
+    handleCategoryFormChange = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+
+        this.setState({
+            ...this.state,
+            newCategory: {
+                ...this.state.newCategory,
+                [name]: value
+            }
+        });
+    }
+
     submitNewProduct = () => {
         // Check for errors
         const { name, category, price } = this.state.newProduct;
@@ -95,11 +114,11 @@ class SearchBox extends Component {
             return;
         }
 
-        this.props.addNewProduct(this.state.newProduct)
+        this.props.addNewProduct(this.state.newProduct);
 
         this.setState({
             ...this.state,
-            showModal: false,
+            showProductModal: false,
             newProduct: {
                 ...this.state.newProduct,
                 name: "",
@@ -110,9 +129,36 @@ class SearchBox extends Component {
         })
     }
 
-    showModal = () => {
+    submitNewCategory = () => {
+        // Check for errors
+        const { name } = this.state.newCategory;
+
+        if (!name) {
+            this.setState({
+                ...this.state,
+                newCategory: {
+                    ...this.state.newCategory,
+                    generalError: "A name must be entered to add a category"
+                }
+            });
+            return;
+        }
+
+        this.props.addNewCategory(this.state.newCategory.name)
+
         this.setState({
-            showModal: !this.state.showModal,
+            ...this.state,
+            showCategoryModal: false,
+            newCategory: {
+                name: "",
+                generalError: ""
+            }
+        })
+    }
+
+    showProductModal = () => {
+        this.setState({
+            showProductModal: !this.state.showProductModal,
             newProduct: {
                 name: "",
                 price: 0,
@@ -120,10 +166,17 @@ class SearchBox extends Component {
                 stocked: false,
                 errors: {
                     generalError: "",
-                    nameError: "",
-                    priceError: "",
-                    categoryError: ""
                 }
+            }
+        })
+    }
+
+    showCategoryModal = () => {
+        this.setState({
+            showCategoryModal: !this.state.showCategoryModal,
+            newCategory: {
+                name: "",
+                generalError: ""
             }
         })
     }
@@ -165,23 +218,59 @@ class SearchBox extends Component {
                         </DropdownMenu>
                     </ButtonDropdown>
 
+                    {/* Add New Category */}
+                    <Button color="success" onClick={this.showCategoryModal}>Add New Category</Button>
+                    <Modal isOpen={this.state.showCategoryModal} toggle={this.showCategoryModal}>
+                        <ModalHeader
+                            toggle={this.showCategoryModal}
+                            className="modalHeader">
+                            New Category
+                        </ModalHeader>
+                        <ModalBody>
+                            {(this.state.newCategory.generalError) ?
+                                <small className="text-danger">{this.state.newCategory.generalError}</small>
+                                : ""
+                            }
+                            <Form>
+                                <InputGroup
+                                    type="text"
+                                    labeltext="Name"
+                                    name="name"
+                                    id="categoryName"
+                                    onChange={this.handleCategoryFormChange}
+                                />
+                            </Form>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button
+                                color="primary"
+                                onClick={this.submitNewCategory}
+                            >
+                                Add Product
+                            </Button>{' '}
+                        </ModalFooter>
+                    </Modal>
+
                     {/* Add New Product */}
-                    <Button color="danger" onClick={this.showModal}>Add New Product</Button>
-                    <Modal isOpen={this.state.showModal} toggle={this.showModal}>
-                        <ModalHeader toggle={this.showModal} className="modalHeader">New Product</ModalHeader>
+                    <Button color="danger" onClick={this.showProductModal}>Add New Product</Button>
+                    <Modal isOpen={this.state.showProductModal} toggle={this.showProductModal}>
+                        <ModalHeader toggle={this.showProductModal} className="modalHeader">New Product</ModalHeader>
 
                         <ModalBody>
                             {(this.state.newProduct.errors.generalError) ?
                                 <small className="text-danger">{this.state.newProduct.errors.generalError}</small>
                                 : ""
                             }
-                            <NewProductForm onNewProductFormChange={this.handleNewProductFormChange}/>
+                            <NewProductForm
+                                onNewProductFormChange={this.handleNewProductFormChange}
+                                categories={this.props.categories}
+                            />
                         </ModalBody>
                         <ModalFooter>
-                            <Button 
-                                onClick={this.submitNewProduct} 
+                            <Button
+                                onClick={this.submitNewProduct}
                                 color="primary">
-                                    Add Product
+                                Add Product
                             </Button>{' '}
                         </ModalFooter>
                     </Modal>
