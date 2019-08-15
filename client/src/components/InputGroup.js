@@ -9,11 +9,17 @@ const InputGroup = (props) => {
     return (
         <div className="formGroup">
             <FormGroup>
-                <Label for={props.id}  className={(errorMessage) ? "text-danger" : ""}>{props.labeltext}</Label>
-                <Input {...props} placeholder={props.labeltext} className={(errorMessage) ? "text-danger form-control is-invalid" : ""}>
+                <Label 
+                    for={props.id}  
+                    className={(errorMessage) ? "text-danger" : ""}>
+                        {props.labeltext}
+                </Label>
+                <Input 
+                    {...props}
+                    placeholder= {props.labeltext}
+                    className= {(errorMessage) ? "text-danger form-control is-invalid" : ""}>
                     {props.children}
                 </Input>
-                {(errorMessage) ? <small className="text-danger">{errorMessage}</small> : ""}
             </FormGroup>
         </div>
     )

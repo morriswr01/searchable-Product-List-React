@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 
-import InputGroup from './InputGroup';
 import {
     Button,
-    Input,
-    Label,
-    FormGroup,
     ButtonDropdown,
     DropdownMenu,
     DropdownItem,
@@ -14,12 +10,12 @@ import {
     ModalHeader,
     ModalBody,
     ModalFooter,
-    Form
 } from 'reactstrap';
 
 // CSS
 import '../css/SearchBox.css';
 import '../css/InputGroup.css';
+import NewProductForm from './NewProductForm';
 
 class SearchBox extends Component {
     constructor(props) {
@@ -82,7 +78,6 @@ class SearchBox extends Component {
     }
 
     submitNewProduct = () => {
-
         // Check for errors
         const { name, category, price } = this.state.newProduct;
 
@@ -174,56 +169,21 @@ class SearchBox extends Component {
                     <Button color="danger" onClick={this.showModal}>Add New Product</Button>
                     <Modal isOpen={this.state.showModal} toggle={this.showModal}>
                         <ModalHeader toggle={this.showModal} className="modalHeader">New Product</ModalHeader>
-                        <Form>
-                            <ModalBody>
-                                {(this.state.newProduct.errors.generalError) ?
-                                    <small className="text-danger">{this.state.newProduct.errors.generalError}</small>
-                                    : ""
-                                }
-                                <InputGroup
-                                    type="text"
-                                    labeltext="Name"
-                                    name="name"
-                                    id="productName"
-                                    onChange={this.handleNewProductFormChange}
-                                />
-                                <InputGroup
-                                    type="number"
-                                    min="0.01"
-                                    labeltext="Price"
-                                    name="price"
-                                    id="productPrice"
-                                    onChange={this.handleNewProductFormChange}
-                                />
-                                <InputGroup
-                                    type="select"
-                                    labeltext="Select Category"
-                                    name="category"
-                                    id="category"
-                                    onChange={this.handleNewProductFormChange}
-                                >
-                                    {/* Options of the select dropdown */}
-                                    <option default value="">Select Category</option>
-                                    <option value="Electronics">Electronics</option>
-                                    <option value="Sporting Goods">Sporting Goods</option>
-                                </InputGroup>
-                                <div className="formGroup" id="stockedFormGroup">
-                                    <FormGroup>
-                                        <Input
-                                            type="checkbox"
-                                            className="form-check-input"
-                                            id="stocked"
-                                            name="stocked"
-                                            onChange={this.handleNewProductFormChange}
-                                        />
-                                        <Label className="form-check-label" for="stocked">In Stock</Label>
-                                    </FormGroup>
-                                </div>
-                            </ModalBody>
-                            <ModalFooter>
-                                <Button onClick={this.submitNewProduct} color="primary">Add Product</Button>{' '}
-                            </ModalFooter>
-                        </Form>
+
+                        <ModalBody>
+                            {(this.state.newProduct.errors.generalError) ?
+                                <small className="text-danger">{this.state.newProduct.errors.generalError}</small>
+                                : ""
+                            }
+                            <NewProductForm onNewProductFormChange={this.handleNewProductFormChange}/>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button 
+                                onClick={this.submitNewProduct} 
+                                color="primary">
+                                    Add Product
+                            </Button>{' '}
+                        </ModalFooter>
                     </Modal>
                 </div>
             </div>
