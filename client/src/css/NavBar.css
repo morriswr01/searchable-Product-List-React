@@ -1,0 +1,16 @@
+.authContainer {
+    position: absolute;
+    top: 20px;
+    right: 15px;
+}
+
+.loggedInBtn {
+    display: grid;
+    grid-template-columns: 5fr 2fr;
+    grid-gap: 5px;
+
+}
+.loggedInBtn p {
+    margin: auto 0;
+    vertical-align: middle;
+}
