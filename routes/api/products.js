@@ -18,12 +18,22 @@ router.get('/', (req, res) => {
 // @desc Create a product
 // @access Public
 router.post('/', (req, res) => {
-    const { name, category, price } = req.body;
-    const newProduct = new Product({ name, category, price });
+    const { name, category, price, stocked } = req.body;
+    const newProduct = new Product({ name, category, price, stocked });
 
     newProduct
         .save()
         .then(product => res.json(product));
+});
+
+// @router DELETE api/products
+// @desc Delete the product with the given id
+// @access Public
+router.delete('/', (req, res) => {
+    const { id } = req.body;
+    Product
+        .findOneAndDelete({"_id": id})
+        .then(deletedProduct => res.json(deletedProduct));
 });
 
 module.exports = router;

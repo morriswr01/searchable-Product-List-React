@@ -16,6 +16,7 @@ mongoose
 
 // Routes
 app.use('/api/products', require('./routes/api/products'));
+app.use('/api/categories', require('./routes/api/categories'));
 
 // Start server and listen on port 5000
 const port = process.env.PORT || 5000;

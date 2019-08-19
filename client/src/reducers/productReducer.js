@@ -1,4 +1,4 @@
-import { SET_FILTERED_TEXT, SET_IN_STOCK_ONLY, GET_ALL_PRODUCTS } from '../actions/types';
+import { SET_FILTERED_TEXT, SET_IN_STOCK_ONLY, GET_ALL_PRODUCTS, SET_SORTBY_CODE, ADD_NEW_PRODUCT, DELETE_PRODUCT } from '../actions/types';
 
 const initialState = {
     // allProducts: [
@@ -19,6 +19,7 @@ const initialState = {
     // ],
     allProducts: [],
     filteredProducts: [],
+    sortByCode: 1,
     filterText: '',
     inStockOnly: false
 }
@@ -43,7 +44,6 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_PRODUCTS:
             const allProducts = action.payload;
-            console.log(allProducts);
             return {
                 ...state,
                 allProducts: allProducts,
@@ -60,6 +60,27 @@ export default (state = initialState, action) => {
                 ...state,
                 filteredProducts: updateFilteredProducts(state.allProducts, state.filterText, action.payload),
                 inStockOnly: action.payload
+            }
+        case SET_SORTBY_CODE:
+            return {
+                ...state,
+                sortByCode: action.payload
+            }
+        case ADD_NEW_PRODUCT:
+            return {
+                ...state,
+                filteredProducts: [
+                    ...state.filteredProducts,
+                    action.payload
+                ]
+            }
+        case DELETE_PRODUCT:
+            const newFilteredProducts = state.filteredProducts.filter( product => {
+                return (product._id !== action.payload) ? true : false;
+            });
+            return {
+                ...state,
+                filteredProducts: newFilteredProducts
             }
         default:
             return state;
