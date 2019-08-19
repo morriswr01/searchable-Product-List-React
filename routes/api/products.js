@@ -1,4 +1,6 @@
+/* eslint-disable linebreak-style */
 const express = require('express');
+const auth = require('../../middleware/auth')
 
 const router = express.Router();
 
@@ -8,7 +10,7 @@ const Product = require('../../models/Product');
 // @router GET api/products
 // @desc Gets ALL products in DB
 // @access Public
-router.get('/', (req, res) => {
+router.get('/', auth, (req, res) => {
     Product
         .find()
         .then(products => res.json(products));
@@ -17,7 +19,7 @@ router.get('/', (req, res) => {
 // @router POST api/products
 // @desc Create a product
 // @access Public
-router.post('/', (req, res) => {
+router.post('/', auth, (req, res) => {
     const { name, category, price, stocked } = req.body;
     const newProduct = new Product({ name, category, price, stocked });
 
@@ -29,7 +31,7 @@ router.post('/', (req, res) => {
 // @router DELETE api/products
 // @desc Delete the product with the given id
 // @access Public
-router.delete('/', (req, res) => {
+router.delete('/', auth, (req, res) => {
     const { id } = req.body;
     Product
         .findOneAndDelete({"_id": id})
