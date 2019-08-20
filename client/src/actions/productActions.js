@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { SET_FILTERED_TEXT, SET_IN_STOCK_ONLY, GET_ALL_PRODUCTS, SET_SORTBY_CODE, ADD_NEW_PRODUCT, DELETE_PRODUCT } from './types';
+import { SET_FILTERED_TEXT, SET_IN_STOCK_ONLY, GET_ALL_PRODUCTS, SET_SORTBY_CODE, ADD_NEW_PRODUCT, DELETE_PRODUCT, CLEAR_PRODUCTS } from './types';
+import { tokenConfig } from './authActions';
+import { returnErrors } from './errorActions';
 
 export const setFilteredText = filteredText => ({
     type: SET_FILTERED_TEXT,
@@ -16,38 +18,49 @@ export const setSortByCode = sortByCode => ({
     payload: sortByCode
 });
 
-export const getAllProducts = () => dispatch => {
+export const clearProducts = () => ({
+    type: CLEAR_PRODUCTS
+});
+
+export const getAllProducts = () => (dispatch, getState) => {
+    console.log('called function')
     axios
-        .get('/api/products')
+        .get('/api/products', tokenConfig(getState))
         .then(res => {
             dispatch({
                 type: GET_ALL_PRODUCTS,
                 payload: res.data
             });
         })
-        .catch(err => console.log(err.response.data));
+        .catch(err =>
+            dispatch(returnErrors(err.response.data, err.response.status))
+        );
 };
 
-export const addNewProduct = newProduct => dispatch => {
+export const addNewProduct = newProduct => (dispatch, getState) => {
     axios
-        .post('api/products', newProduct)
-        .then(() => {
+        .post('api/products', newProduct, tokenConfig(getState))
+        .then(res => {
             dispatch({
                 type: ADD_NEW_PRODUCT,
-                payload: newProduct
+                payload: res.data
             });
         })
-        .catch(err => console.log(err.response.data));
-}
+        .catch(err =>
+            dispatch(returnErrors(err.response.data, err.response.status))
+        );
+};
 
-export const deleteProduct = id => dispatch => {
+export const deleteProduct = id => (dispatch, getState) => {
     axios
-        .delete('api/products', {data:{id: id}})
+        .delete('api/products', { headers: tokenConfig(getState).headers }, { data: { id: id } })
         .then((res) => {
             dispatch({
                 type: DELETE_PRODUCT,
                 payload: id
             })
         })
-        .catch(err => console.log(err.response.data));
-}
+        .catch(err =>
+            dispatch(returnErrors(err.response.data, err.response.status))
+        );
+};

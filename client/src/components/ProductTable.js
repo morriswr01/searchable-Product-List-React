@@ -7,6 +7,14 @@ import "../css/ProductTable.css";
 const ProductTable = (props) => {
     const { products, onDeletedProduct } = props;
 
+    if (products.length === 0) {
+        return (
+            <div>
+                <p>Must log in to view product database</p>
+            </div>
+        )
+    }
+
     const rows = (products) => {
         let rows = []
         if (products === []) {

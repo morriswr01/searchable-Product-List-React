@@ -10,6 +10,7 @@ import {
     ModalHeader,
     Form,
     ModalBody,
+    Alert,
     ModalFooter,
 } from 'reactstrap';
 
@@ -228,7 +229,7 @@ class SearchBox extends Component {
                         </ModalHeader>
                         <ModalBody>
                             {(this.state.newCategory.generalError) ?
-                                <small className="text-danger">{this.state.newCategory.generalError}</small>
+                                <Alert color="danger">{this.state.newCategory.generalError}</Alert>
                                 : ""
                             }
                             <Form>
@@ -258,7 +259,7 @@ class SearchBox extends Component {
 
                         <ModalBody>
                             {(this.state.newProduct.errors.generalError) ?
-                                <small className="text-danger">{this.state.newProduct.errors.generalError}</small>
+                                <Alert color="danger">{this.state.newProduct.errors.generalError}</Alert>
                                 : ""
                             }
                             <NewProductForm

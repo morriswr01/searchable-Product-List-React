@@ -8,7 +8,7 @@ import SearchBox from '../components/SearchBox'
 import ProductTable from '../components/ProductTable'
 
 // Actions
-import { setFilteredText, setInStockOnly, getAllProducts, setSortByCode, addNewProduct, deleteProduct } from '../actions/productActions';
+import { setFilteredText, setInStockOnly, getAllProducts, setSortByCode, addNewProduct, deleteProduct, clearProducts } from '../actions/productActions';
 // eslint-disable-next-line no-unused-vars
 import { getAllCategories, addNewCategory } from "../actions/categoryActions";
 
@@ -100,7 +100,8 @@ const mapStateToProps = (state) => ({
     filterText: state.products.filterText,
     inStockOnly: state.products.inStockOnly,
     sortByCode: state.products.sortByCode,
-    categories: state.categories.categories
+    categories: state.categories.categories,
+    isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(
@@ -113,5 +114,7 @@ export default connect(
         addNewProduct,
         deleteProduct,
         getAllCategories,
-        addNewCategory
+        addNewCategory,
+        clearProducts
+
     })(SearchableProductTable);

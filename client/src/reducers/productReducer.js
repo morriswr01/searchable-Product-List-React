@@ -1,4 +1,4 @@
-import { SET_FILTERED_TEXT, SET_IN_STOCK_ONLY, GET_ALL_PRODUCTS, SET_SORTBY_CODE, ADD_NEW_PRODUCT, DELETE_PRODUCT } from '../actions/types';
+import { SET_FILTERED_TEXT, SET_IN_STOCK_ONLY, GET_ALL_PRODUCTS, SET_SORTBY_CODE, ADD_NEW_PRODUCT, DELETE_PRODUCT, CLEAR_PRODUCTS } from '../actions/types';
 
 const initialState = {
     // allProducts: [
@@ -42,6 +42,8 @@ const updateFilteredProducts = (allProducts, filterText, inStockOnly) => {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case CLEAR_PRODUCTS:
+            return initialState;
         case GET_ALL_PRODUCTS:
             const allProducts = action.payload;
             return {
