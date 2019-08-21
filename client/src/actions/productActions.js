@@ -23,7 +23,6 @@ export const clearProducts = () => ({
 });
 
 export const getAllProducts = () => (dispatch, getState) => {
-    console.log('called function')
     axios
         .get('/api/products', tokenConfig(getState))
         .then(res => {

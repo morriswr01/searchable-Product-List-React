@@ -11,7 +11,7 @@ import {
 } from 'reactstrap';
 
 import InputGroup from '../components/InputGroup';
-import { login, logout } from '../actions/authActions';
+import { login, logout, register } from '../actions/authActions';
 
 import '../css/NavBar.css';
 
@@ -22,7 +22,14 @@ class NavBar extends Component {
         this.state = {
             showLoginModal: false,
             loginDetails: {
-                username: "",
+                email: "",
+                password: "",
+                generalError: ""
+            },
+            showRegistrationModal: false,
+            registrationDetails: {
+                name: "John",
+                email: "",
                 password: "",
                 generalError: ""
             }
@@ -42,11 +49,36 @@ class NavBar extends Component {
         });
     }
 
+    handleRegistrationFormChange = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+
+        this.setState({
+            ...this.state,
+            registrationDetails: {
+                ...this.state.registrationDetails,
+                [name]: value
+            }
+        });
+    }
+
     showLoginModal = () => {
         this.setState({
             showLoginModal: !this.state.showLoginModal,
             loginDetails: {
-                username: "",
+                email: "",
+                password: "",
+                generalError: ""
+            }
+        })
+    }
+
+    showRegistrationModal = () => {
+        this.setState({
+            showRegistrationModal: !this.state.showRegistrationModal,
+            registrationDetails: {
+                name: "John",
+                email: "",
                 password: "",
                 generalError: ""
             }
@@ -75,7 +107,37 @@ class NavBar extends Component {
             showLoginModal: false,
             loginDetails: {
                 ...this.state.loginDetails,
-                username: "",
+                email: "",
+                password: "",
+                generalError: ""
+            }
+        })
+    }
+
+    submitRegistration = () => {
+        // Check for errors
+        const { email, password } = this.state.registrationDetails;
+
+        if (!email || !password) {
+            this.setState({
+                ...this.state,
+                registrationDetails: {
+                    ...this.state.registrationDetails,
+                    generalError: "All inputs must be filled to login"
+                }
+            });
+            return;
+        }
+
+        this.props.register(this.state.registrationDetails);
+
+        this.setState({
+            ...this.state,
+            showRegistrationModal: false,
+            registrationDetails: {
+                ...this.state.registrationDetails,
+                name: "John",
+                email: "",
                 password: "",
                 generalError: ""
             }
@@ -87,6 +149,7 @@ class NavBar extends Component {
             <div className="authContainer">
                 {(!this.props.isAuthenticated) ?
                     <Fragment>
+                        {/* Login modal */}
                         <Button className="authBtn" color="primary" onClick={this.showLoginModal}>
                             Login
                     </Button>
@@ -128,6 +191,49 @@ class NavBar extends Component {
                         </Button>{' '}
                             </ModalFooter>
                         </Modal>
+
+                        {/* Registration modal */}
+                        <Button className="authBtn" color="success" onClick={this.showRegistrationModal}>
+                            Register
+                        </Button>
+                        <Modal isOpen={this.state.showRegistrationModal} toggle={this.showRegistrationModal}>
+                            <ModalHeader
+                                toggle={this.showRegistrationModal}
+                                className="modalHeader">
+                                Register
+                            </ModalHeader>
+                            <ModalBody>
+                                {(this.state.registrationDetails.generalError) ?
+                                    <Alert color="danger">{this.state.registrationDetails.generalError}</Alert>
+                                    : ""
+                                }
+                                <Form>
+                                    <InputGroup
+                                        type="email"
+                                        labeltext="Email"
+                                        name="email"
+                                        id="emailRegistration"
+                                        onChange={this.handleRegistrationFormChange}
+                                    />
+                                    <InputGroup
+                                        type="password"
+                                        labeltext="Password"
+                                        name="password"
+                                        id="passwordRegistration"
+                                        autoComplete="off"
+                                        onChange={this.handleRegistrationFormChange}
+                                    />
+                                </Form>
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button
+                                    onClick={this.submitRegistration}
+                                    color="primary"
+                                >
+                                    Register
+                        </Button>{' '}
+                            </ModalFooter>
+                        </Modal>
                     </Fragment>
                     :
                     <div className="loggedInBtn">
@@ -147,4 +253,4 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(
-    mapStateToProps, { login, logout })(NavBar);
+    mapStateToProps, { login, logout, register })(NavBar);

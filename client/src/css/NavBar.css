@@ -4,6 +4,10 @@
     right: 15px;
 }
 
+.authBtn{
+    margin-left: 5px
+}
+
 .loggedInBtn {
     display: grid;
     grid-template-columns: 5fr 2fr;

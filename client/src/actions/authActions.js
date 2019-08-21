@@ -10,8 +10,8 @@ import {
 	LOGIN_FAIL,
 	LOGOUT_SUCCESS,
 	CLEAR_PRODUCTS,
-	// REGISTER_SUCCESS,
-	// REGISTER_FAIL
+	REGISTER_SUCCESS,
+	REGISTER_FAIL
 } from './types';
 
 // Login
@@ -29,6 +29,25 @@ export const login = (loginDetails) => dispatch => {
 			dispatch(returnErrors(err.response.data, err.response.status, LOGIN_FAIL));
 			dispatch({
 				type: LOGIN_FAIL
+			})
+		})
+}
+
+// Register User
+export const register = (registerationDetails) => dispatch => {
+	// Send registration details and request a token
+	axios.post('api/users', registerationDetails)
+		.then(res => {
+			dispatch({
+				type: REGISTER_SUCCESS,
+				payload: res.data
+			})
+			dispatch(getAllProducts())
+		})
+		.catch(err => {
+			dispatch(returnErrors(err.response.data, err.response.status, REGISTER_FAIL));
+			dispatch({
+				type: REGISTER_FAIL
 			})
 		})
 }
