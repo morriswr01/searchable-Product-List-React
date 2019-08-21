@@ -11,10 +11,14 @@
 .loggedInBtn {
     display: grid;
     grid-template-columns: 5fr 2fr;
-    grid-gap: 5px;
+    grid-gap: 10px;
 
 }
 .loggedInBtn p {
     margin: auto 0;
     vertical-align: middle;
+}
+
+.nameTag {
+    text-align: right;
 }

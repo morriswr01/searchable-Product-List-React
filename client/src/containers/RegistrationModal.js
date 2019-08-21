@@ -22,17 +22,16 @@ class RegistrationModal extends Component {
         this.state = {
             showRegistrationModal: false,
             registrationDetails: {
-                name: "John",
-                email: "",
-                password: "",
-                generalError: ""
+                name: 'John',
+                email: '',
+                password: '',
+                generalError: ''
             }
         }
     }
 
 componentDidUpdate(prevProps) {
         const { error, isAuthenticated } = this.props;
-        console.log(error);
         if (error !== prevProps.error) {
             // Check for register error
             if (error.id === 'REGISTER_FAIL') {
@@ -47,7 +46,7 @@ componentDidUpdate(prevProps) {
                 this.setState({
                     registrationDetails: {
                         ...this.state.registrationDetails,
-                        generalError: null
+                        generalError: ''
                     }
                 });
             }
@@ -79,7 +78,7 @@ componentDidUpdate(prevProps) {
         this.setState({
             showRegistrationModal: !this.state.showRegistrationModal,
             registrationDetails: {
-                name: "John",
+                name: "",
                 email: "",
                 password: "",
                 generalError: ""
@@ -124,6 +123,13 @@ componentDidUpdate(prevProps) {
                             : ""
                         }
                         <Form>
+                            <InputGroup
+                                type="text"
+                                labeltext="Name"
+                                name="name"
+                                id="name"
+                                onChange={this.handleRegistrationFormChange}
+                            />
                             <InputGroup
                                 type="email"
                                 labeltext="Email"

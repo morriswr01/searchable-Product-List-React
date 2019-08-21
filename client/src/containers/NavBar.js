@@ -2,8 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 // Actions
-import { login, logout, register } from '../actions/authActions';
-import { clearErrors } from '../actions/errorActions';
+import { logout } from '../actions/authActions';
 
 // CSS
 import { Button } from 'reactstrap';
@@ -15,49 +14,6 @@ import RegistrationModal from './RegistrationModal';
 
 class NavBar extends Component {
 
-    // componentDidUpdate(prevProps) {
-    //     const { error, isAuthenticated } = this.props;
-    //     console.log(error);
-    //     if (error !== prevProps.error) {
-    //         // Check for register error
-    //         if (error.id === 'LOGIN_FAIL') {
-    //             this.setState({
-    //                 loginDetails: {
-    //                     ...this.state.loginDetails,
-    //                     generalError: this.props.error.msg.msg
-    //                 }
-    //             });
-    //         }
-    //         if (error.id === 'REGISTER_FAIL') {
-    //             this.setState({
-    //                 registrationDetails: {
-    //                     ...this.state.registrationDetails,
-    //                     generalError: this.props.error.msg.msg
-    //                 }
-    //             });
-    //         }
-    //         else {
-    //             this.setState({
-    //                 loginDetails: {
-    //                     ...this.state.loginDetails,
-    //                     generalError: null
-    //                 },
-    //                 registrationDetails: {
-    //                     ...this.state.registrationDetails,
-    //                     generalError: null
-    //                 }
-    //             });
-    //         }
-    //     }
-    //     // If authenticated, close modal
-    //     if (isAuthenticated) {
-    //         this.setState({
-    //             showRegistrationModal: false,
-    //             showLoginModal: false
-    //         })
-    //     }
-    // }
-
     render() {
         return (
             <div className="authContainer">
@@ -68,7 +24,7 @@ class NavBar extends Component {
                     </Fragment>
                     :
                     <div className="loggedInBtn">
-                        <p>Logged In As, Will Morris</p>
+                        <p className="nameTag">Logged In As, {this.props.user.name}</p>
                         <Button color="primary" onClick={this.props.logout}>
                             Logout
                         </Button>
@@ -81,8 +37,8 @@ class NavBar extends Component {
 
 const mapStateToProps = (state) => ({
     isAuthenticated: state.auth.isAuthenticated,
-    error: state.error
+    user: state.auth.user
 });
 
 export default connect(
-    mapStateToProps, { login, logout, register, clearErrors })(NavBar);
+    mapStateToProps, { logout })(NavBar);
