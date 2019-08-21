@@ -24,6 +24,7 @@ export const login = (loginDetails) => dispatch => {
 				payload: res.data
 			})
 			dispatch(getAllProducts())
+			dispatch({ type: CLEAR_PRODUCTS });
 		})
 		.catch(err => {
 			dispatch(returnErrors(err.response.data, err.response.status, LOGIN_FAIL));
@@ -43,6 +44,7 @@ export const register = (registerationDetails) => dispatch => {
 				payload: res.data
 			})
 			dispatch(getAllProducts())
+			dispatch({ type: CLEAR_PRODUCTS });
 		})
 		.catch(err => {
 			dispatch(returnErrors(err.response.data, err.response.status, REGISTER_FAIL));
