@@ -17,6 +17,7 @@ This is a basic product list built for me to learn the basics of full-stack deve
 * React.js(Completely new to me before project)
 * Redux(Completely new to me before project)
 * MongoDB(Mongoose.js)(Some experience)
+* Bootstrap
 
 ## Screenshots of some of the features
 Before Login<br>
@@ -34,6 +35,20 @@ Some error messages<br>
 ## Future Features
 * Make fully responsive using mobile first methods
 * Add pagination for the list of items
+* Convert all CSS to SASS
+
+## Resources used:
+* Medium Articles
+  * https://learn.co/lessons/map-state-to-props-readme
+  * https://medium.com/shoutem/react-to-bind-or-not-to-bind-7bf58327e22a
+  * https://code.likeagirl.io/tutorial-for-adding-redux-to-a-react-app-1a94cc1738e5
+* React Documentation
+* React Tutorials
+  * https://reactjs.org/docs/forms.html
+  * https://www.freecodecamp.org/news/sort-table-data-with-react/
+* React-redux Documentation
+  * https://react-redux.js.org/introduction/basic-tutorial
+  * https://spin.atomicobject.com/2017/06/07/react-state-vs-redux-state/
 
 In the project directory, you can run:
 
