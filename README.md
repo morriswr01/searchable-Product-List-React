@@ -11,6 +11,13 @@ This is a basic product list built for me to learn the basics of full-stack deve
 * Some backend routes protected using JWT token authentication. On login a token is generated which is then stored in local storage on the client side and passed to protected routes with every request.
 * Suitable error messages for validation related issues.
 
+## Technologies used:
+* Node.js(Some experience)
+* Express.js(Some experience)
+* React.js(Completely new to me before project)
+* Redux(Completely new to me before project)
+* MongoDB(Mongoose.js)(Some experience)
+
 ## Screenshots of some of the features
 Before Login<br>
 ![#1](https://user-images.githubusercontent.com/19209657/63857244-44a09800-c99b-11e9-83c3-ed2b9c026171.PNG)<br>
