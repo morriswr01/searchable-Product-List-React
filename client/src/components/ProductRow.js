@@ -1,9 +1,11 @@
 import React from 'react';
+
+// CSS
 import "../css/ProductRow.css";
 
 const ProductRow = (props) => {
     const { name, price, stocked, category } = props.product;
-    const { productID ,onDeletedProduct } = props
+    const { productID, onDeletedProduct } = props
 
     return (
         <tr>

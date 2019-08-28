@@ -10,12 +10,15 @@ import {
     ModalHeader,
     Form,
     ModalBody,
+    Alert,
     ModalFooter,
 } from 'reactstrap';
 
 // CSS
 import '../css/SearchBox.css';
 import '../css/InputGroup.css';
+
+// Local components
 import InputGroup from './InputGroup'
 import NewProductForm from './NewProductForm';
 
@@ -47,17 +50,17 @@ class SearchBox extends Component {
         };
     }
 
+    // ----- Methods to call parent methods -----
     handleFilterTextChange = (e) => {
         this.props.onFilterTextChange(e.target.value);
     }
-
     handleInStockChange = (e) => {
         this.props.onInStockChange(e.target.checked);
     }
-
     handleSortByChange = (sortByCode) => {
         this.props.onSortByChange(sortByCode);
     }
+    // ------------------------------------------
 
     handleNewProductFormChange = (e) => {
         const name = e.target.name;
@@ -79,8 +82,6 @@ class SearchBox extends Component {
                 }
             }
         });
-
-
     }
 
     handleCategoryFormChange = (e) => {
@@ -228,7 +229,7 @@ class SearchBox extends Component {
                         </ModalHeader>
                         <ModalBody>
                             {(this.state.newCategory.generalError) ?
-                                <small className="text-danger">{this.state.newCategory.generalError}</small>
+                                <Alert color="danger">{this.state.newCategory.generalError}</Alert>
                                 : ""
                             }
                             <Form>
@@ -258,7 +259,7 @@ class SearchBox extends Component {
 
                         <ModalBody>
                             {(this.state.newProduct.errors.generalError) ?
-                                <small className="text-danger">{this.state.newProduct.errors.generalError}</small>
+                                <Alert color="danger">{this.state.newProduct.errors.generalError}</Alert>
                                 : ""
                             }
                             <NewProductForm
