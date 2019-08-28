@@ -10,7 +10,10 @@ import {
     Alert
 } from 'reactstrap';
 
+// Local components
 import InputGroup from '../components/InputGroup';
+
+// Actions
 import { register } from '../actions/authActions';
 import { clearErrors } from '../actions/errorActions';
 
@@ -30,10 +33,11 @@ class RegistrationModal extends Component {
         }
     }
 
-componentDidUpdate(prevProps) {
+    // When the state of connected store changes check if there are any errors and if the user is now authenticated
+    componentDidUpdate(prevProps) {
         const { error, isAuthenticated } = this.props;
         if (error !== prevProps.error) {
-            // Check for register error
+            // Check for register error if so populate register modal with error
             if (error.id === 'REGISTER_FAIL') {
                 this.setState({
                     registrationDetails: {
@@ -59,7 +63,7 @@ componentDidUpdate(prevProps) {
         }
     }
 
-
+    // Update state to match input fields
     handleRegistrationFormChange = (e) => {
         const name = e.target.name;
         const value = e.target.value;
@@ -73,6 +77,7 @@ componentDidUpdate(prevProps) {
         });
     }
 
+    // Toggle registration modal
     showRegistrationModal = () => {
         this.props.clearErrors();
         this.setState({
@@ -86,6 +91,7 @@ componentDidUpdate(prevProps) {
         })
     }
 
+    // Submit registration form
     submitRegistration = () => {
         // Check for errors
         const { email, password } = this.state.registrationDetails;

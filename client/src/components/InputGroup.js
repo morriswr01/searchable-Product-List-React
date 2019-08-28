@@ -1,9 +1,11 @@
 import React from 'react';
 import { FormGroup, Label, Input } from 'reactstrap';
 
+// CSS
 import '../css/InputGroup.css';
 
 const InputGroup = (props) => {
+    // Get error message
     const errorMessage = props.error;
 
     return (

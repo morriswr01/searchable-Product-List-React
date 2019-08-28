@@ -15,6 +15,7 @@ const ProductTable = (props) => {
         )
     }
 
+    // Generate rows of react components from products array
     const rows = (products) => {
         let rows = []
         if (products === []) {

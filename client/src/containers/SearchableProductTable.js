@@ -9,7 +9,6 @@ import ProductTable from '../components/ProductTable'
 
 // Actions
 import { setFilteredText, setInStockOnly, getAllProducts, setSortByCode, addNewProduct, deleteProduct, clearProducts } from '../actions/productActions';
-// eslint-disable-next-line no-unused-vars
 import { getAllCategories, addNewCategory } from "../actions/categoryActions";
 
 // CSS
@@ -17,35 +16,34 @@ import '../css/SearchableProductTable.css';
 
 class SearchableProductTable extends Component {
 
+    // On render, populate products state and populate categories state so that both can be displayed
     componentDidMount() {
         this.props.getAllProducts();
         this.props.getAllCategories();
     }
 
+    // ----- Methods that call functions from parent -----
     handleFilterTextChange = (filterText) => {
         this.props.setFilteredText(filterText);
     }
-
     handleInStockChange = (inStockOnly) => {
         this.props.setInStockOnly(inStockOnly);
     }
-
     handleSortByChange = (sortByCode) => {
         this.props.setSortByCode(sortByCode);
     }
-
     handleNewProduct = (newProduct) => {
         this.props.addNewProduct(newProduct);
     }
-
     handleNewCategory = (name) => {
         this.props.addNewCategory(name);
     }
-
     handleDeletedProduct = (id) => {
         this.props.deleteProduct(id);
     }
+    // ----------------------------------------------------
 
+    // Doing sorting for sort by here as I wasn't sure if JSON objects keep their order during transmission from server to client
     sortFilteredProducts = (filteredProducts, sortByCode) => {
         switch (sortByCode) {
             case 1:
@@ -116,5 +114,4 @@ export default connect(
         getAllCategories,
         addNewCategory,
         clearProducts
-
     })(SearchableProductTable);

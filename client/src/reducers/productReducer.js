@@ -1,22 +1,14 @@
-import { SET_FILTERED_TEXT, SET_IN_STOCK_ONLY, GET_ALL_PRODUCTS, SET_SORTBY_CODE, ADD_NEW_PRODUCT, DELETE_PRODUCT, CLEAR_PRODUCTS } from '../actions/types';
+import { 
+    SET_FILTERED_TEXT,
+    SET_IN_STOCK_ONLY,
+    GET_ALL_PRODUCTS,
+    SET_SORTBY_CODE,
+    ADD_NEW_PRODUCT,
+    DELETE_PRODUCT,
+    CLEAR_PRODUCTS
+} from '../actions/types';
 
 const initialState = {
-    // allProducts: [
-    //     { category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football' },
-    //     { category: 'Sporting Goods', price: '$9.99', stocked: true, name: 'Baseball' },
-    //     { category: 'Sporting Goods', price: '$29.99', stocked: false, name: 'Basketball' },
-    //     { category: 'Electronics', price: '$99.99', stocked: true, name: 'iPod Touch' },
-    //     { category: 'Electronics', price: '$399.99', stocked: false, name: 'iPhone 5' },
-    //     { category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7' }
-    // ],
-    // filteredProducts: [
-    //     { category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football' },
-    //     { category: 'Sporting Goods', price: '$9.99', stocked: true, name: 'Baseball' },
-    //     { category: 'Sporting Goods', price: '$29.99', stocked: false, name: 'Basketball' },
-    //     { category: 'Electronics', price: '$99.99', stocked: true, name: 'iPod Touch' },
-    //     { category: 'Electronics', price: '$399.99', stocked: false, name: 'iPhone 5' },
-    //     { category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7' }
-    // ],
     allProducts: [],
     filteredProducts: [],
     sortByCode: 1,
@@ -42,8 +34,10 @@ const updateFilteredProducts = (allProducts, filterText, inStockOnly) => {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        // Empty all arrays of products
         case CLEAR_PRODUCTS:
             return initialState;
+        // Get all products from payload and set arrays to them
         case GET_ALL_PRODUCTS:
             const allProducts = action.payload;
             return {
@@ -51,23 +45,27 @@ export default (state = initialState, action) => {
                 allProducts: allProducts,
                 filteredProducts: allProducts
             }
+        // Set filtered text field and updateFilteredProducts based on content of filterText
         case SET_FILTERED_TEXT:
             return {
                 ...state,
                 filteredProducts: updateFilteredProducts(state.allProducts, action.payload, state.inStockOnly),
                 filterText: action.payload
             }
+        // Set inStockOnly field and updateFilteredProducts based on value of inStockOnly field
         case SET_IN_STOCK_ONLY:
             return {
                 ...state,
                 filteredProducts: updateFilteredProducts(state.allProducts, state.filterText, action.payload),
                 inStockOnly: action.payload
             }
+        // Set the code of sort by
         case SET_SORTBY_CODE:
             return {
                 ...state,
                 sortByCode: action.payload
             }
+        // Add new product to filteredProducts
         case ADD_NEW_PRODUCT:
             return {
                 ...state,
@@ -76,8 +74,9 @@ export default (state = initialState, action) => {
                     action.payload
                 ]
             }
+        // Remove product in payload
         case DELETE_PRODUCT:
-            const newFilteredProducts = state.filteredProducts.filter( product => {
+            const newFilteredProducts = state.filteredProducts.filter(product => {
                 return (product._id !== action.payload) ? true : false;
             });
             return {

@@ -14,6 +14,7 @@ export default function NewProductForm(props) {
     return (
         <div>
             <Form>
+                {/* Name */}
                 <InputGroup
                     type="text"
                     labeltext="Name"
@@ -21,6 +22,7 @@ export default function NewProductForm(props) {
                     id="productName"
                     onChange={props.onNewProductFormChange}
                 />
+                {/* Price */}
                 <InputGroup
                     type="number"
                     min="0.01"
@@ -29,6 +31,7 @@ export default function NewProductForm(props) {
                     id="productPrice"
                     onChange={props.onNewProductFormChange}
                 />
+                {/* Category */}
                 <InputGroup
                     type="select"
                     labeltext="Select Category"
@@ -40,6 +43,7 @@ export default function NewProductForm(props) {
                     <option default value="">Select Category</option>
                     {categoryElements}
                 </InputGroup>
+                {/* In stock */}
                 <div className="formGroup" id="stockedFormGroup">
                     <FormGroup>
                         <Input

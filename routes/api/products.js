@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 const express = require('express');
 const auth = require('../../middleware/auth')
 
@@ -8,8 +7,8 @@ const router = express.Router();
 const Product = require('../../models/Product');
 
 // @router GET api/products
-// @desc Gets ALL products in DB
-// @access Public
+// @desc Gets ALL products in DB and return as JSON object
+// @access Private(authentication token required)
 router.get('/', auth, (req, res) => {
     Product
         .find()
@@ -17,8 +16,8 @@ router.get('/', auth, (req, res) => {
 });
 
 // @router POST api/products
-// @desc Create a product
-// @access Public
+// @desc Create a product in DB and return as JSON object
+// @access Private(authentication token required)
 router.post('/', auth, (req, res) => {
     const { name, category, price, stocked } = req.body;
     const newProduct = new Product({ name, category, price, stocked });
@@ -29,8 +28,8 @@ router.post('/', auth, (req, res) => {
 });
 
 // @router DELETE api/products
-// @desc Delete the product with the given id
-// @access Public
+// @desc Delete the product with the given id and return deleted product as JSON object
+// @access Private(authentication token required)
 router.delete('/', auth, (req, res) => {
     const { id } = req.body;
     Product

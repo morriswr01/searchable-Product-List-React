@@ -8,6 +8,7 @@ const initialState = {
 
 export default function (state = initialState, action) {
     switch (action.type) {
+        // Set error with the parameters in the payload
         case GET_ERRORS:
             return {
                 msg: action.payload.msg,
@@ -15,11 +16,7 @@ export default function (state = initialState, action) {
                 id: action.payload.id
             }
         case CLEAR_ERRORS:
-            return {
-                msg: {},
-                status: null,
-                id: null
-            }
+            return initialState;
         default:
             return state;
     }

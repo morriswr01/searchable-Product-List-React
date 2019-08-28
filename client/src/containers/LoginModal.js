@@ -10,7 +10,10 @@ import {
     Alert
 } from 'reactstrap';
 
+// Local components
 import InputGroup from '../components/InputGroup';
+
+// Actions
 import { login } from '../actions/authActions';
 import { clearErrors } from '../actions/errorActions';
 
@@ -29,10 +32,11 @@ class LoginModal extends Component {
         }
     }
 
+    // When the state of connected store changes check if there are any errors and if the user is now authenticated
     componentDidUpdate(prevProps) {
         const { error, isAuthenticated } = this.props;
         if (error !== prevProps.error) {
-            // Check for register error
+            // Check for login error and populate login modal with error message
             if (error.id === 'LOGIN_FAIL') {
                 this.setState({
                     loginDetails: {

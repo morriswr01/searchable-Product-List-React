@@ -17,6 +17,7 @@ class NavBar extends Component {
     render() {
         return (
             <div className="authContainer">
+                {/* Check if user is authenticated and either display login button or logout */}
                 {(!this.props.isAuthenticated) ?
                     <Fragment>
                         <LoginModal />

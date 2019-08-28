@@ -1,17 +1,19 @@
-/* eslint-disable linebreak-style */
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 const config = require('config');
+
+// Import authentication middleware
 const auth = require('../../middleware/auth')
 
+// Import router from api/users
 const router = express.Router();
 
 // Get user model
 const User = require('../../models/User');
 
 // @router POST api/users/auth
-// @desc Login - Authenticate existing User
+// @desc Login - Authenticate existing User from email and password
 // @access Public
 router.post('/auth', (req, res) => {
     const { email, password } = req.body;
@@ -48,7 +50,7 @@ router.post('/auth', (req, res) => {
 });
 
 // @router POST api/users
-// @desc Register new User
+// @desc Register new User with name, email and password
 // @access Public
 router.post('/', (req, res) => {
     const { name, email, password } = req.body;
@@ -95,8 +97,8 @@ router.post('/', (req, res) => {
 });
 
 // @route GET api/users/user
-// @desc Get user data
-// @access Public
+// @desc Get user data from the userID attatched to the request by the auth middleware(in middleware/auth.js)
+// @access Private(authentication token required)
 router.get('/user', auth, (req, res) => {
     User.findById(req.user.id)
         .select('-password') 
